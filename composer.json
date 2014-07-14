@@ -1,0 +1,23 @@
+{
+    "name": "24hoursmedia/tesla-esync-bundle",
+    "description": "Esync CRUD events Symfony budle",
+    "type": "library",
+    "authors": [
+        {
+            "name": "E.Bachman",
+            "email": "eba@24hoursmedia.com"
+        }
+    ],
+    "keywords": [],
+    "homepage": "http://www.24hoursmedia.com/tesla",
+    "license": [
+        "MIT"
+    ],
+    "autoload": {
+        "psr-0": {
+            "Tesla\\EsyncBundle": ""
+        }
+    },
+    "target-dir": "Tesla/EsyncBundle",
+    "minimum-stability": "dev"
+}

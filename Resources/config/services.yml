@@ -1,0 +1,53 @@
+parameters:
+#    tesla_cud_manager.example.class: Tesla\TeslaEsyncBundle\Example
+
+    tesla_esync.aws_config:
+        region: ~
+        key: ~
+        secret: ~
+    tesla_esync.sqs_topic: ~
+    tesla_esync.sqs_region: ~
+    tesla_esync.sns_topic: ~
+    tesla_esync.sns_region: ~
+    tesla_esync.log_channel: tesla_sync
+
+services:
+
+    tesla_esync.logger_factory:
+        class: Tesla\EsyncBundle\Logger\LoggerFactory
+
+        calls:
+          - [setLogger, [@logger]]
+        tags:
+          - { name: monolog.logger, channel: tesla_sync }
+
+    tesla_esync.logger:
+        class: %monolog.logger.class%
+        factory_service: tesla_esync.logger_factory
+        factory_method: get
+
+    tesla_esync.aws:
+        class: Aws\Common\Aws
+        factory_class:  Aws\Common\Aws
+        factory_method: factory
+        arguments:
+          - %tesla_esync.aws_config%
+
+    tesla_esync.command_receiver:
+        class: Tesla\Esync\Aws\SqsNotificationReceiver
+        arguments:
+            - @tesla_esync.aws
+            - %tesla_esync.sqs_topic%
+            - %tesla_esync.sqs_region%
+        calls:
+            - [setEventDispatcher, [@event_dispatcher]]
+
+    tesla_esync.notifier:
+        class: Tesla\Esync\Aws\SnsNotificationService
+        arguments:
+            - @tesla_esync.aws
+            - %tesla_esync.sns_topic%
+            - %tesla_esync.sns_region%
+        calls:
+            - [setSystemName, [%tesla_esync.notifier_system%]]
+            - [setEventDispatcher, [@event_dispatcher]]
