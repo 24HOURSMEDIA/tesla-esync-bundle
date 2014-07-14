@@ -18,6 +18,10 @@
             "Tesla\\EsyncBundle": ""
         }
     },
+    "require": {
+        "php": ">=5.3.3",
+        "24hoursmedia/tesla-esync": "dev-master"
+    },
     "target-dir": "Tesla/EsyncBundle",
     "minimum-stability": "dev"
 }
