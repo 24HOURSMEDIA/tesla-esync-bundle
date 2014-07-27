@@ -5,10 +5,11 @@ parameters:
         region: ~
         key: ~
         secret: ~
-    tesla_esync.sqs_topic: ~
+    tesla_esync.sqs_queue: ~
     tesla_esync.sqs_region: ~
     tesla_esync.sns_topic: ~
     tesla_esync.sns_region: ~
+    tesla_esync.notifier_system: ~
     tesla_esync.log_channel: tesla_sync
 
 services:
@@ -37,7 +38,7 @@ services:
         class: Tesla\Esync\Aws\SqsNotificationReceiver
         arguments:
             - @tesla_esync.aws
-            - %tesla_esync.sqs_topic%
+            - %tesla_esync.sqs_queue%
             - %tesla_esync.sqs_region%
         calls:
             - [setEventDispatcher, [@event_dispatcher]]
