@@ -20,7 +20,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "24hoursmedia/tesla-esync": "~1.0"
+        "24hoursmedia/tesla-esync": "master-dev"
     },
     "target-dir": "Tesla/EsyncBundle",
     "minimum-stability": "dev"
